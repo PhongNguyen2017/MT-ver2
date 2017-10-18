@@ -36,7 +36,18 @@ var ProductSchema = new Schema({
 		type:Number,
 		min:1,
 		require:'Enter Price !!!'
-	}
+	},
+	status: {
+        type: [{
+          type: String,
+          enum: ['Available', 'Sold']
+        }],
+        default: ['Available']
+      },
+    
+    proType: {
+        type: String
+    }
 
 });
 

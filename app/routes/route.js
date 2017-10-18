@@ -101,6 +101,12 @@ module.exports = function(app) {
         if (!tmp.price) {
             errMes += " Enter Product's price. Please!!! ";
         }
+        if (!tmp.status) {
+            errMes += " Enter Product's status. Please!!! ";
+        }
+        if (!tmp.price) {
+            errMes += " Enter Product's proType. Please!!! ";
+        }
         if (errMes) {
             ejs.renderFile('./view/Product.ejs', { errMes: errMes }, (err, html) => {
                 res.end(html);
@@ -112,6 +118,8 @@ module.exports = function(app) {
             newProduct.name = req.body.name;
             newProduct.description = req.body.description;
             newProduct.price = req.body.price;
+            newProduct.status = req.body.status; 
+            newProduct.proType = req.body.proType;
             newProduct.save(function(err){
         if (err)
         return ejs.renderFile('./view/Product.ejs', { errMes: err.message }, (err, html) => {
