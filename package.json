@@ -1,0 +1,39 @@
+{
+  "name": "seach_range",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thangdkpro/MST_Seach.git"
+  },
+  "author": "NguyenDucThang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thangdkpro/MST_Seach/issues"
+  },
+  "homepage": "https://github.com/Thangdkpro/MST_Seach#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
+    "mongoose": "^4.12.0",
+    "nodejs": "0.0.0",
+    "nodemon": "^1.12.1",
+    "bcryptjs": "*",
+    "connect-flash": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
+  }
+}

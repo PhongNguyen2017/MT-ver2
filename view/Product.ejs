@@ -1,0 +1,25 @@
+<html>
+<header>
+    <title>Product</title>
+</header>
+
+<body>
+
+    <form action="/Product" method="POST">
+        <p>Name: <input type="text" name="name" /></p>
+        <p>Decription:<input type="text" name="description" /></p>
+        <p>Price:<input type="number" name="price"></p>
+        
+        <button type="submit">Add</button>
+    </form>
+    
+
+    <p style="color: red;">
+        <% if (typeof errMes !== 'undefined') {%>
+        
+        <%= errMes%>
+        <% }%>
+    </p>
+    
+</body>
+</html>
