@@ -32,11 +32,13 @@ var ProductSchema = new Schema({
 	
 		maxlength:100
 	},
+
 	price: {
 		type:Number,
 		min:1,
 		require:'Enter Price !!!'
 	},
+	
 	status: {
         type: [{
           type: String,

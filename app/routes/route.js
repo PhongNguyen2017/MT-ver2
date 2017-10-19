@@ -187,17 +187,25 @@ function ensureAuthenticated(req, res, next){
 	}
 }
   // Register
-app.get('/register', function(req, res){
-	res.render('register');
+
+app.get('/Register', (req, res) =>{
+  ejs.renderFile('./view/register.ejs',{}, (err, html) => {
+    res.end(html);
+  });
+  
 });
 
 // Login
-app.get('/login', function(req, res){
-	res.render('login');
+app.get('/Login', (req, res) =>{
+  ejs.renderFile('./view/login.ejs',{}, (err, html) => {
+    res.end(html);
+  });
+	
 });
 
+
 // Register User
-app.post('/register', function(req, res){
+app.post('/Register', function(req, res){
 	var name = req.body.name;
     var email = req.body.email;
     var phone = req.body.phone;
@@ -217,16 +225,17 @@ app.post('/register', function(req, res){
 	var errors = req.validationErrors();
 
 	if(errors){
-		res.render('register',{
-			errors:errors
+		res.renderFile('./view/register.ejs',{}, (err, html) =>{
+			errors:errors,
+      res.end(html);
 		});
 	} else {
 		var newUser = new User({
 			name: name,
-            email:email,
-            phone:phone,
+      email:email,
+      phone:phone,
 			username: username,
-            password: password,
+      password: password,
             
 		});
 
@@ -237,7 +246,7 @@ app.post('/register', function(req, res){
 
 		req.flash('success_msg', 'You are registered and can now login');
 
-		res.redirect('/route/login');
+		res.redirect('./route/Login');
 	}
 });
 // Authentication
