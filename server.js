@@ -3,7 +3,6 @@ var methodOverride = require('method-override');
 
 // Component for User module - Phong
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
@@ -39,7 +38,12 @@ app.use(session({
 app.use(methodOverride('_method'))
 
 var routes = require('./app/routes/route.js'); //importing route
+var users = require('./app/routes/users.js');
 routes(app);
+
+// View engine
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 // Passport init - Phong
 app.use(passport.initialize());
@@ -75,6 +79,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use('/users', users);
 
 app.get('/mydemo', (req, res)=>
 {

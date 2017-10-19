@@ -175,7 +175,7 @@ app.get('/list', function(req, res, next) {
 
 // Get Homepage
 app.get('/', ensureAuthenticated, function(req, res){
-	res.render('index');
+	res.render('/ProductList');
 });
 
 function ensureAuthenticated(req, res, next){
@@ -205,79 +205,80 @@ app.get('/Login', (req, res) =>{
 
 
 // Register User
-app.post('/Register', function(req, res){
-	var name = req.body.name;
-    var email = req.body.email;
-    var phone = req.body.phone;
-	var username = req.body.username;
-	var password = req.body.password;
-	var password2 = req.body.password2;
+// app.post('/Register', function(req, res){
+// 	var name = req.body.name;
+//     var email = req.body.email;
+//     var phone = req.body.phone;
+// 	var username = req.body.username;
+// 	var password = req.body.password;
+// 	var password2 = req.body.password2;
 
-	// Validation
-	req.checkBody('name', 'Name is required').notEmpty();
-	req.checkBody('email', 'Email is required').notEmpty();
-    req.checkBody('email', 'Email is not valid').isEmail();
-    req.checkBody('phone','Phone number is required').notEmpty();
-	req.checkBody('username', 'Username is required').notEmpty();
-	req.checkBody('password', 'Password is required').notEmpty();
-	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+// 	// Validation
+// 	req.checkBody('name', 'Name is required').notEmpty();
+// 	req.checkBody('email', 'Email is required').notEmpty();
+//     req.checkBody('email', 'Email is not valid').isEmail();
+//     req.checkBody('phone','Phone number is required').notEmpty();
+// 	req.checkBody('username', 'Username is required').notEmpty();
+// 	req.checkBody('password', 'Password is required').notEmpty();
+// 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-	var errors = req.validationErrors();
+// 	var errors = req.validationErrors();
 
-	if(errors){
-		res.renderFile('./view/register.ejs',{}, (err, html) =>{
-			errors:errors,
-      res.end(html);
-		});
-	} else {
-		var newUser = new User({
-			name: name,
-      email:email,
-      phone:phone,
-			username: username,
-      password: password,
+// 	if(errors){
+// 		res.renderFile('./view/register.ejs',{}, (err, html) =>{
+// 			errors:errors,
+//             res.end(html);
+// 		});
+// 	} else {
+// 		var newUser = new User({
+// 			name: name,
+//             email:email,
+//             phone:phone,
+// 			username: username,
+//             password: password,
             
-		});
+// 		});
 
-		User.createUser(newUser, function(err, user){
-			if(err) throw err;
-			console.log(user);
-		});
+// 		User.createUser(newUser, function(err, user){
+// 			if(err) throw err;
+// 			console.log(user);
+// 		});
 
-		req.flash('success_msg', 'You are registered and can now login');
+// 		req.flash('success_msg', 'You are registered and can now login');
 
-		res.redirect('./route/Login');
-	}
-});
+// 		res.redirect('./route/Login');
+// 	}
+// });
+
 // Authentication
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-   User.getUserByUsername(username, function(err, user){
-   	if(err) throw err;
-   	if(!user){
-   		return done(null, false, {message: 'Unknown User'});
-   	}
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//    User.getUserByUsername(username, function(err, user){
+//    	if(err) throw err;
+//    	if(!user){
+//    		return done(null, false, {message: 'Unknown User'});
+//    	}
 
-   	User.comparePassword(password, user.password, function(err, isMatch){
-   		if(err) throw err;
-   		if(isMatch){
-   			return done(null, user);
-   		} else {
-   			return done(null, false, {message: 'Invalid password'});
-   		}
-   	});
-   });
-  }));
+//    	User.comparePassword(password, user.password, function(err, isMatch){
+//    		if(err) throw err;
+//    		if(isMatch){
+//    			return done(null, user);
+//    		} else {
+//    			return done(null, false, {message: 'Invalid password'});
+//    		}
+//    	});
+//    });
+//   }));
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
 
-passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
-    done(err, user);
-  });
-});
+// passport.deserializeUser(function(id, done) {
+//   User.getUserById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
 
 app.post('/login',
   passport.authenticate('local', {successRedirect:'/', failureRedirect:'/route/login',failureFlash: true}),
