@@ -89,10 +89,11 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+//Routing Login
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+  passport.authenticate('local', {successRedirect:'/ProductList', failureRedirect:'/Login',failureFlash: true}),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/Login');
   });
 
 router.get('/logout', function(req, res){
