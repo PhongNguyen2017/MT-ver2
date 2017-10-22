@@ -41,16 +41,20 @@ var ProductSchema = new Schema({
 	
 	status: {
         type: [{
-          type: String,
+          type: String, 
           enum: ['Available', 'Sold']
         }],
         default: ['Available']
       },
     
     proType: {
-        type: String
-    }
-
+        type: String,
+        enum: ['Sach', 'Xe may','Laptop','Dien Thoai']
+    },
+     img: { 
+     	data: Buffer, 
+     	contentType: String 
+     }
 });
 
 module.exports = mongoose.model('product', ProductSchema);

@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'), ejs = require('ejs')
-
+var fs = require('fs');
 var Product = require('../Models/product.js');
-
 var User = require('../Models/user.js');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -16,7 +15,11 @@ module.exports = function(app) {
             res.end(html);
         });
     });
+    
 
+    
+
+        
 
     app.get('/ProductList', function(req, res) {
 
@@ -38,6 +41,7 @@ module.exports = function(app) {
 
         }
 
+      
         //-----------------HAM TIM KIEM THEO KHOANG GIA --------------------------//
 
 
@@ -68,8 +72,7 @@ module.exports = function(app) {
 
         
 
-            console.log('ko chay dc if');
-            Product.find(function(err,products){
+                Product.find(function(err,products){
                 ejs.renderFile('./view/ProductList.ejs',{products},(err, html) => {
                     res.end(html)
                 })
@@ -82,11 +85,10 @@ module.exports = function(app) {
 
 
 
-///adas/da/d/a/d/ada/d
+ 
     //---------------------------------POST Product---------------------------------------------
 
-
-
+ 
     app.post('/Product', (req, res,done) => {
         const tmp = req.body;
         var errMes = "";
@@ -114,12 +116,17 @@ module.exports = function(app) {
         }
 
          else {
+          //  var fileInput= 'index.png';
             var newProduct = new Product();
             newProduct.name = req.body.name;
             newProduct.description = req.body.description;
             newProduct.price = req.body.price;
             newProduct.status = req.body.status; 
             newProduct.proType = req.body.proType;
+            
+            
+        //    newProduct.img.data = fs.readFileSync(fileInput);
+        //    newProduct.img.contentType= 'image/png'
             newProduct.save(function(err){
         if (err)
         return ejs.renderFile('./view/Product.ejs', { errMes: err.message }, (err, html) => {
@@ -216,8 +223,8 @@ app.post('/Register', function(req, res){
 	// Validation
 	req.checkBody('name', 'Name is required').notEmpty();
 	req.checkBody('email', 'Email is required').notEmpty();
-    req.checkBody('email', 'Email is not valid').isEmail();
-    req.checkBody('phone','Phone number is required').notEmpty();
+  req.checkBody('email', 'Email is not valid').isEmail();
+  req.checkBody('phone','Phone number is required').notEmpty();
 	req.checkBody('username', 'Username is required').notEmpty();
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);

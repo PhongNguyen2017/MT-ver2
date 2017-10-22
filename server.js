@@ -1,10 +1,11 @@
 const express = require('express');
 var methodOverride = require('method-override');
-
+const multer  = require('multer');
 // Component for User module - Phong
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
+
 var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -21,8 +22,23 @@ app = express()
       cookieParser = require('cookie-parser');
 
 
+// Set Storage Engine 
+const storage = multer.diskStorage({
+  destination: './public/js/',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now()+
+      path.extname(file.originalname))
+  }
+})
 
 
+
+const upload = multer({ 
+  storage: storage 
+  }).single('img');
+
+///
+app.use(express.static('./public')) ;
 
 mongoose.Promise = global.Promise;
 var configDB = require('./config/database.js');
@@ -32,9 +48,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
-    secret: 'iloveyoubaobao', // session secret
-    resave: false,
-    saveUninitialized: true
+    secret: 'mst', // session secret
+    saveUninitialized: true,
+    
 }));
 app.use(methodOverride('_method'))
 
@@ -72,15 +88,11 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
+  res.locals.session = req.session; 
   next();
 });
 
-
-app.get('/mydemo', (req, res)=>
-{
-	res.send('Hello World!');
-});
-
+ 
 app.listen(port,()=>
 {
 	console.log('listened port'+ port);

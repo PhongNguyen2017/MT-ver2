@@ -1,20 +1,54 @@
+
+
+
+
 <html>
 <header>
-    <title>Product</title>
+    <title>Product</title>  
+   
+
+
 </header>
 
 <body>
+<div>
 
-    <form action="/Product" method="POST">
-        <p>Name: <input type="text" name="name" /></p>
+            <nav className="navbar navbar-default">
+              <div className="container-fluid">
+                <div className="navbar-header">
+                  <a className="navbar-brand" >
+                        <p className="managela"> Managela</p>
+                  </a>
+                </div>
+              
+                </div>
+            </nav>
+
+                
+        </div>
+          
+            
+    <form action="/Product" method="POST" enctype="multipart/fom-data">
+       <p>Name: <input type="text" name="name" /></p>
         <p>Decription:<input type="text" name="description" /></p>
         <p>Price:<input type="number" name="price"></p>
         <p>Status:<input type="text" name="status"></p>
         <p>Product Type:<input type="text" name="proType"></p>
+        <!-- <p>Image:<input type="file"  name="img"  > </p> -->
+      
 
+        <!-- <script>
+           function chooseFile() {
+              $("#fileInput").click();
+           }
+        </script> -->
         <button type="submit">Add</button>
+
+
+
     </form>
     
+
 
     <p style="color: red;">
         <% if (typeof errMes !== 'undefined') {%>
